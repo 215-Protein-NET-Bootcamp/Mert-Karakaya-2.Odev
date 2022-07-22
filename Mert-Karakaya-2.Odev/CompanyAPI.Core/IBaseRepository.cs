@@ -13,7 +13,7 @@ namespace CompanyAPI.Core
         Task<T> GetByIdAsync(int id);
         Task<IEnumerable<T>> Where(Expression<Func<T, bool>> expression);
         Task InsertAsync(T entity);
-        void Update(T entity); //Uzun işlem olmadığı için senkron da yapılabilir. Direkt statey, değişiyor.
-        void DeleteAsync(T entity);
+        void Update(T entity); //Uzun işlem olmadığı için senkron da yapılabilir. Direkt stateyi değişiyor.
+        void Delete(T entity);
     }
 }

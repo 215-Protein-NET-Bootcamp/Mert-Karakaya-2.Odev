@@ -11,7 +11,7 @@ namespace CompanyAPI.Core
         Task<ResponseEntity> GetByIdAsync(int id);
         Task<ResponseEntity> Where(Expression<Func<T, bool>> expression);
         Task<ResponseEntity> InsertAsync(T entity);
-        Task<ResponseEntity> Update(T entity);
-        Task<ResponseEntity> DeleteAsync(T entity);
+        Task<ResponseEntity> UpdateAsync(int id, T entity);
+        Task<ResponseEntity> DeleteAsync(int id);
     }
 }

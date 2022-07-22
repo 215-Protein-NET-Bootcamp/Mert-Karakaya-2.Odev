@@ -44,7 +44,7 @@ namespace CompanyAPI.Data.Repositories.Concrete
         {
             return await _dbSet.Where(expression).ToListAsync();
         }
-        public void DeleteAsync(T entity)
+        public void Delete(T entity)
         {
             _dbSet.Remove(entity);
         }
