@@ -9,9 +9,9 @@ using CompanyAPI.Data.Context;
 using CompanyAPI.Data.Model;
 using Dapper;
 
-namespace CompanyAPI.Data.Repositories.Concrete
+namespace CompanyAPI.Data.Repositories
 {
-    class CountryRepository : IBaseRepository<Country>
+    public class CountryRepository : ICountryRepository
     {
         private readonly DapperDbContext dapperDbContext;
 

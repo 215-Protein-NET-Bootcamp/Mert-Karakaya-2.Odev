@@ -16,6 +16,10 @@ namespace CompanyAPI.Data.Context
             _configuration = configuration;
             _connectionString = _configuration.GetConnectionString("DefaultConnection");
         }
-        public IDbConnection CreateConnection() => new NpgsqlConnection(_connectionString); //Postgre SQL bağlantısı oluşturuldu.
+
+        public IDbConnection CreateConnection()
+        {
+            return new NpgsqlConnection(_connectionString); //Postgre SQL bağlantısı oluşturuldu.
+        }
     }
 }

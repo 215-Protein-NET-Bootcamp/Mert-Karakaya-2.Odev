@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using CompanyAPI.Core;
 using CompanyAPI.Data.Model;
 
-namespace CompanyAPI.Data.Repositories.Concrete
+namespace CompanyAPI.Data.Repositories
 {
-    class DepartmentRepository : IBaseRepository<Department>
+    public class DepartmentRepository : IBaseRepository<Department>
     {
         public async Task<IEnumerable<Department>> GetAllAsync()
         {

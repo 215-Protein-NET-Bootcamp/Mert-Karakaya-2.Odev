@@ -8,7 +8,7 @@ using CompanyAPI.Core;
 using CompanyAPI.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace CompanyAPI.Data.Repositories.Concrete
+namespace CompanyAPI.Data.Repositories
 {
     public class EFBaseRepository<T> : IBaseRepository<T> where T : class //T'nin ne olduğu her zaman belirtilmeli
     {

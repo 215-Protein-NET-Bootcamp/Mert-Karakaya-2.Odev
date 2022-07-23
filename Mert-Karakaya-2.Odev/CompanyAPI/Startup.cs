@@ -12,7 +12,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using CompanyAPI.Core;
 using CompanyAPI.Data.Context;
+using CompanyAPI.Data.Repositories;
+using CompanyAPI.Data.Model;
 using CompanyAPI.Data.UnitOfWorks;
+using CompanyAPI.Service.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyAPI
@@ -33,6 +36,8 @@ namespace CompanyAPI
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             AppDbContext.SetContextConnectionString(Configuration.GetConnectionString("DefaultConnection"));
             services.AddSingleton<DapperDbContext>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IUnitofWork, UnitOfWork>();
             services.AddControllers();
             services.AddSwaggerGen(gen =>
