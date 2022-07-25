@@ -5,13 +5,12 @@ using CompanyAPI.Core.Entities;
 
 namespace CompanyAPI.Core
 {
-    public interface IBaseService<T> where T : class
+    public interface IBaseService<Dto,T>
     {
         Task<ResponseEntity> GetAllAsync();
         Task<ResponseEntity> GetByIdAsync(int id);
-        Task<ResponseEntity> Where(Expression<Func<T, bool>> expression);
-        Task<ResponseEntity> InsertAsync(T entity);
-        Task<ResponseEntity> UpdateAsync(int id, T entity);
+        Task<ResponseEntity> InsertAsync(Dto entity);
+        Task<ResponseEntity> UpdateAsync(int id, Dto entity);
         Task<ResponseEntity> DeleteAsync(int id);
     }
 }

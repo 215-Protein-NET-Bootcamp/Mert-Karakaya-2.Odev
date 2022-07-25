@@ -10,10 +10,10 @@ using Microsoft.Extensions.Logging;
 namespace CompanyAPI.Controllers
 {
     [ApiController]
-    public class BaseController<T> : ControllerBase where T : class
+    public class BaseController<Dto,T> : ControllerBase
     {
-        private readonly IBaseService<T> _baseService;
-        public BaseController(IBaseService<T> baseService)
+        private readonly IBaseService<Dto,T> _baseService;
+        public BaseController(IBaseService<Dto, T> baseService)
         {
             _baseService = baseService;
         }
@@ -45,7 +45,7 @@ namespace CompanyAPI.Controllers
         }
 
         [NonAction]
-        public virtual async Task<IActionResult> CreateAsync([FromBody] T entity)
+        public virtual async Task<IActionResult> CreateAsync([FromBody] Dto entity)
         {
             var result = await _baseService.InsertAsync(entity);
 
@@ -56,7 +56,7 @@ namespace CompanyAPI.Controllers
         }
 
         [NonAction]
-        public virtual async Task<IActionResult> UpdateAsync(int id, [FromBody] T entity)
+        public virtual async Task<IActionResult> UpdateAsync(int id, [FromBody] Dto entity)
         {
             var result = await _baseService.UpdateAsync(id, entity);
 

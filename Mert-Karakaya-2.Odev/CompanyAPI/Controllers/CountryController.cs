@@ -5,7 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CompanyAPI.Core;
+using CompanyAPI.Core.Entities;
+using CompanyAPI.Data.DTO;
 using CompanyAPI.Data.Model;
+using CompanyAPI.Helpers;
 using CompanyAPI.Service.Services;
 using Microsoft.Extensions.Logging;
 
@@ -13,7 +16,7 @@ namespace CompanyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountryController : BaseController<Country>
+    public class CountryController : BaseController<CountryDto,Country>
     {
         private readonly ICountryService _service;
         private readonly ILogger<CountryController> _logger;
@@ -49,11 +52,15 @@ namespace CompanyAPI.Controllers
         }
 
         [HttpPost]
-        public new async Task<IActionResult> CreateAsync([FromBody] Country country)
+        public new async Task<IActionResult> CreateAsync([FromBody] CountryDto country)
         {
             _logger.LogInformation($"Created a Country.");
 
-            //Validasyon yazılacak.
+            var validationResult = Validator.CountryValidator(country);
+            if (!string.IsNullOrWhiteSpace(validationResult))
+            {
+                return BadRequest(new ResponseEntity(validationResult));
+            }
 
             var insertResult = await _service.InsertAsync(country);
 
@@ -64,9 +71,15 @@ namespace CompanyAPI.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public new async Task<IActionResult> UpdateAsync(int id, [FromBody] Country country)
+        public new async Task<IActionResult> UpdateAsync(int id, [FromBody] CountryDto country)
         {
             _logger.LogInformation($"Update a Country with Id is {id}.");
+
+            var validationResult = Validator.CountryValidator(country);
+            if (!string.IsNullOrWhiteSpace(validationResult))
+            {
+                return BadRequest(new ResponseEntity(validationResult));
+            }
 
             return await base.UpdateAsync(id, country);
         }
@@ -75,7 +88,7 @@ namespace CompanyAPI.Controllers
         [HttpDelete("{id:int}")]
         public new async Task<IActionResult> DeleteAsync(int id)
         {
-            _logger.LogInformation($"Delete a Author with Id is {id}.");
+            _logger.LogInformation($"Delete a Country with Id is {id}.");
 
             return await base.DeleteAsync(id);
         }

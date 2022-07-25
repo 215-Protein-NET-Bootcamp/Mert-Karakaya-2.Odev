@@ -80,3 +80,10 @@ C:\Users\karak\Documents\GitHub\Mert-Karakaya-2.Odev\Mert-Karakaya-2.Odev\Compan
 C:\Users\karak\Documents\GitHub\Mert-Karakaya-2.Odev\Mert-Karakaya-2.Odev\CompanyAPI\obj\Debug\netcoreapp3.1\CompanyAPI.dll
 C:\Users\karak\Documents\GitHub\Mert-Karakaya-2.Odev\Mert-Karakaya-2.Odev\CompanyAPI\obj\Debug\netcoreapp3.1\CompanyAPI.pdb
 C:\Users\karak\Documents\GitHub\Mert-Karakaya-2.Odev\Mert-Karakaya-2.Odev\CompanyAPI\obj\Debug\netcoreapp3.1\CompanyAPI.genruntimeconfig.cache
+C:\Users\karak\Documents\GitHub\Mert-Karakaya-2.Odev\Mert-Karakaya-2.Odev\CompanyAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\karak\Documents\GitHub\Mert-Karakaya-2.Odev\Mert-Karakaya-2.Odev\CompanyAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\karak\Documents\GitHub\Mert-Karakaya-2.Odev\Mert-Karakaya-2.Odev\CompanyAPI\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\karak\Documents\GitHub\Mert-Karakaya-2.Odev\Mert-Karakaya-2.Odev\CompanyAPI\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\karak\Documents\GitHub\Mert-Karakaya-2.Odev\Mert-Karakaya-2.Odev\CompanyAPI\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Users\karak\Documents\GitHub\Mert-Karakaya-2.Odev\Mert-Karakaya-2.Odev\CompanyAPI\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\karak\Documents\GitHub\Mert-Karakaya-2.Odev\Mert-Karakaya-2.Odev\CompanyAPI\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll

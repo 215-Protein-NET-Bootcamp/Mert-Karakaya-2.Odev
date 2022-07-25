@@ -39,11 +39,18 @@ namespace CompanyAPI.Data.Context
                 entity.HasKey(r => r.EmpId);
                 entity.ToTable("employee");
                 entity.HasOne(r => r.Department).WithMany(r => r.Employees).HasForeignKey(r => r.DeptId);
+                entity.Property(r => r.EmpId).HasColumnName("empid");
+                entity.Property(r => r.EmpName).HasColumnName("empname");
+                entity.Property(r => r.DeptId).HasColumnName("deptid");
+
             });
             modelBuilder.Entity<Folder>(entity =>
             {
                 entity.ToTable("folder");
                 entity.HasOne(r => r.Employee).WithMany(r => r.Folders).HasForeignKey(r => r.EmpId);
+                entity.Property(r => r.FolderId).HasColumnName("folderid");
+                entity.Property(r => r.AccessType).HasColumnName("accesstype");
+                entity.Property(r => r.EmpId).HasColumnName("empid");
             });
         }
     }

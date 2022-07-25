@@ -11,7 +11,6 @@ namespace CompanyAPI.Core
         //IQueryable daha performanslıdır. ToList çekildikten sonra DB'ye gidip istek atar.
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
-        Task<IEnumerable<T>> Where(Expression<Func<T, bool>> expression);
         Task InsertAsync(T entity);
         void Update(T entity); //Uzun işlem olmadığı için senkron da yapılabilir. Direkt stateyi değişiyor.
         void Delete(T entity);

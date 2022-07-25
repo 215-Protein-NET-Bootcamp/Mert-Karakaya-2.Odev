@@ -10,12 +10,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CompanyAPI.Core;
 using CompanyAPI.Data.Context;
 using CompanyAPI.Data.Repositories;
 using CompanyAPI.Data.Model;
 using CompanyAPI.Data.UnitOfWorks;
+using CompanyAPI.Service.Mapper;
 using CompanyAPI.Service.Services;
+using CompanyAPI.Service.Services.Abstract;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyAPI
@@ -38,8 +41,14 @@ namespace CompanyAPI
             services.AddSingleton<DapperDbContext>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IFolderRepository, FolderRepository>();
+            services.AddScoped<IFolderService, FolderService>();
             services.AddScoped<IUnitofWork, UnitOfWork>();
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddSwaggerGen(gen =>
             {
                 gen.SwaggerDoc("CompanyAPIV1", new Microsoft.OpenApi.Models.OpenApiInfo
@@ -48,6 +57,11 @@ namespace CompanyAPI
                     Title = "Company API",
                 });
             });
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            services.AddSingleton(mapperConfig.CreateMapper());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +86,7 @@ namespace CompanyAPI
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/CompanyAPIV1/swagger.json", "Company API");
+                options.DefaultModelsExpandDepth(-1);
             });
         }
     }
