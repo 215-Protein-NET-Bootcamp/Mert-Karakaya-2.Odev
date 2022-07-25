@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CompanyAPI.Core;
+using CompanyAPI.Core.Entities;
 using CompanyAPI.Data.DTO;
 using CompanyAPI.Data.Model;
+using CompanyAPI.Helpers;
 using CompanyAPI.Service.Services;
 using Microsoft.Extensions.Logging;
 
@@ -18,10 +20,12 @@ namespace CompanyAPI.Controllers
     {
         private readonly IFolderService _service;
         private readonly ILogger<FolderController> _logger;
-        public FolderController(IFolderService folderService, ILogger<FolderController> logger) : base(folderService)
+        private readonly IEmployeeService _employeeService;
+        public FolderController(IFolderService folderService, IEmployeeService employeeService, ILogger<FolderController> logger) : base(folderService)
         {
             _service = folderService;
             _logger = logger;
+            _employeeService = employeeService;
         }
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -53,7 +57,11 @@ namespace CompanyAPI.Controllers
         {
             _logger.LogInformation($"Created a Folder.");
 
-            //Validasyon yazılacak.
+            var validationResult = Validator.FolderValidator(folder, _employeeService);
+            if (!string.IsNullOrWhiteSpace(validationResult))
+            {
+                return BadRequest(new ResponseEntity(validationResult));
+            }
 
             var insertResult = await _service.InsertAsync(folder);
 
@@ -67,7 +75,11 @@ namespace CompanyAPI.Controllers
         public new async Task<IActionResult> UpdateAsync(int id, [FromBody] FolderDto folder)
         {
             _logger.LogInformation($"Update a Folder with Id is {id}.");
-
+            var validationResult = Validator.FolderValidator(folder, _employeeService);
+            if (!string.IsNullOrWhiteSpace(validationResult))
+            {
+                return BadRequest(new ResponseEntity(validationResult));
+            }
             return await base.UpdateAsync(id, folder);
         }
 

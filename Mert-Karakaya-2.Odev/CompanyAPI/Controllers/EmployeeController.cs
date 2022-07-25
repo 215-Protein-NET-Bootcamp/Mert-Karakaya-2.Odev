@@ -5,9 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CompanyAPI.Core;
+using CompanyAPI.Core.Entities;
 using CompanyAPI.Data.DTO;
 using CompanyAPI.Data.Model;
+using CompanyAPI.Helpers;
 using CompanyAPI.Service.Services;
+using CompanyAPI.Service.Services.Abstract;
 using Microsoft.Extensions.Logging;
 
 namespace CompanyAPI.Controllers
@@ -18,10 +21,12 @@ namespace CompanyAPI.Controllers
     {
         private readonly IEmployeeService _service;
         private readonly ILogger<EmployeeController> _logger;
-        public EmployeeController(IEmployeeService employeeService, ILogger<EmployeeController> logger) : base(employeeService)
+        private readonly IDepartmentService _departmentService;
+        public EmployeeController(IEmployeeService employeeService, IDepartmentService departmentService,ILogger<EmployeeController> logger) : base(employeeService)
         {
             _service = employeeService;
             _logger = logger;
+            _departmentService = departmentService;
         }
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -53,7 +58,11 @@ namespace CompanyAPI.Controllers
         {
             _logger.LogInformation($"Created a Employee.");
 
-            //Validasyon yazılacak.
+            var validationResult = Validator.EmployeeValidator(employee, _departmentService);
+            if (!string.IsNullOrWhiteSpace(validationResult))
+            {
+                return BadRequest(new ResponseEntity(validationResult));
+            }
 
             var insertResult = await _service.InsertAsync(employee);
 
@@ -67,7 +76,11 @@ namespace CompanyAPI.Controllers
         public new async Task<IActionResult> UpdateAsync(int id, [FromBody] EmployeeDto employee)
         {
             _logger.LogInformation($"Update a Employee with Id is {id}.");
-
+            var validationResult = Validator.EmployeeValidator(employee, _departmentService);
+            if (!string.IsNullOrWhiteSpace(validationResult))
+            {
+                return BadRequest(new ResponseEntity(validationResult));
+            }
             return await base.UpdateAsync(id, employee);
         }
 

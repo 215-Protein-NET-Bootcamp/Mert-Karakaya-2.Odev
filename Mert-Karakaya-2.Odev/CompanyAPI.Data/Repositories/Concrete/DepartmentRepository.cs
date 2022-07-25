@@ -61,7 +61,7 @@ namespace CompanyAPI.Data.Repositories
 
         public void Update(Department entity)
         {
-            var query = "UPDATE country SET \"deptname\" = @deptname , \"countryid\" = @countryid WHERE \"departmentid\" = @departmentid";
+            var query = "UPDATE department SET \"deptname\" = @deptname , \"countryid\" = @countryid WHERE \"departmentid\" = @departmentid";
 
 
             using (var connection = dapperDbContext.CreateConnection())

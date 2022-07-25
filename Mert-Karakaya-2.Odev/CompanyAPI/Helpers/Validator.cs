@@ -20,9 +20,10 @@ namespace CompanyAPI.Helpers
             else
             {
                 var countryResult = ctx.GetByIdAsync(entity.CountryId).Result;
-                if (countryResult == null)
+                if (countryResult != null)
                 {
-                    return "Bu Country ID numarası mevcut değildir. Country ID:"+ entity.CountryId;
+                    if(countryResult.data == null)
+                        return "Bu Country ID numarası mevcut değildir. Country ID:"+ entity.CountryId;
                 }
             }
             return "";
@@ -66,9 +67,10 @@ namespace CompanyAPI.Helpers
             else
             {
                 var deptResult = ctx.GetByIdAsync(entity.DeptId).Result;
-                if (deptResult == null)
+                if (deptResult != null)
                 {
-                    return "Bu Country ID numarası mevcut değildir. Dept ID:" + entity.DeptId;
+                    if(deptResult.data == null)
+                        return "Bu Dept ID numarası mevcut değildir. Dept ID:" + entity.DeptId;
                 }
             }
             return "";
@@ -87,9 +89,10 @@ namespace CompanyAPI.Helpers
             else
             {
                 var empResult = ctx.GetByIdAsync(entity.EmpId).Result;
-                if (empResult == null)
+                if (empResult != null)
                 {
-                    return "Bu Emp ID numarası mevcut değildir. Emp ID:" + entity.EmpId;
+                    if(empResult.data == null)
+                        return "Bu Emp ID numarası mevcut değildir. Emp ID:" + entity.EmpId;
                 }
             }
             return "";
