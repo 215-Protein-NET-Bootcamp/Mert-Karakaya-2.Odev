@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CompanyAPI.Core;
 using CompanyAPI.Data.Context;
@@ -14,6 +10,7 @@ namespace CompanyAPI.Data.Repositories
     {
         protected readonly AppDbContext _appDbContext;
         private readonly DbSet<T> _dbSet;
+
         public EFBaseRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
@@ -27,7 +24,10 @@ namespace CompanyAPI.Data.Repositories
 
         public async Task<T> GetByIdAsync(int id)
         {
-            return await _dbSet.FindAsync(id);
+            var result = await _dbSet.FindAsync(id);
+            if (result != null)
+                _appDbContext.Entry(result).State = EntityState.Detached;
+            return result;
         }
 
         public async Task InsertAsync(T entity)

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using CompanyAPI.Data.Context;
 using CompanyAPI.Data.Model;
-using CompanyAPI.Data.Repositories;
 using Dapper;
 
 namespace CompanyAPI.Data.Repositories
@@ -15,7 +11,7 @@ namespace CompanyAPI.Data.Repositories
     {
         private readonly DapperDbContext dapperDbContext;
 
-        public DepartmentRepository(DapperDbContext dapperDbContext) : base()
+        public DepartmentRepository(DapperDbContext dapperDbContext)
         {
             this.dapperDbContext = dapperDbContext;
         }
@@ -50,7 +46,7 @@ namespace CompanyAPI.Data.Repositories
 
             var parameters = new DynamicParameters();
             parameters.Add("deptname", entity.DeptName, DbType.String);
-            parameters.Add("countryid", entity.CountryId, DbType.String);
+            parameters.Add("countryid", entity.CountryId, DbType.Int32);
 
             using (var connection = dapperDbContext.CreateConnection())
             {
@@ -61,19 +57,20 @@ namespace CompanyAPI.Data.Repositories
 
         public void Update(Department entity)
         {
-            var query = "UPDATE department SET \"deptname\" = @deptname , \"countryid\" = @countryid WHERE \"departmentid\" = @departmentid";
+            var query =
+                "UPDATE department SET \"deptname\" = @deptname , \"countryid\" = @countryid WHERE \"departmentid\" = @departmentid";
 
 
             using (var connection = dapperDbContext.CreateConnection())
             {
                 connection.Open();
-                connection.Execute(query, new { entity.DeptName, entity.CountryId, entity.DepartmentId});
+                connection.Execute(query, new { entity.DeptName, entity.CountryId, entity.DepartmentId });
             }
         }
 
         public void Delete(Department entity)
         {
-            var query = "DELETE FROM country WHERE \"departmentid\" = @departmentid";
+            var query = "DELETE FROM department WHERE \"departmentid\" = @departmentid";
             using (var connection = dapperDbContext.CreateConnection())
             {
                 connection.Open();
